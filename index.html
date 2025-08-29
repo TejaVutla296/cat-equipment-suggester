@@ -476,9 +476,9 @@
     </footer>
 
     <script>
-        // Equipment database with local image URLs
+  
         const equipmentDatabase = [
-            // Excavators
+      
             {
                 id: "1",
                 name: "CAT 320 Excavator",
@@ -543,7 +543,7 @@
                 }
             },
             
-            // Wheel Loaders
+  
             {
                 id: "4",
                 name: "CAT 962M Wheel Loader",
@@ -587,7 +587,7 @@
                 }
             },
             
-            // Dozers
+
             {
                 id: "6",
                 name: "CAT D6T Dozer",
@@ -631,7 +631,7 @@
                 }
             },
             
-            // Dump Trucks
+    
             {
                 id: "8",
                 name: "CAT 745C Dump Truck",
@@ -722,24 +722,24 @@
             }
         ];
 
-        // Equipment recommendation pipe object
+     
         const equipmentRecommendationPipe = {
-            // Main function to get recommendations
+       
             getRecommendations: function(projectDetails) {
                 let recommendations = [];
                 
-                // Score each piece of equipment based on project requirements
+                
                 equipmentDatabase.forEach(equipment => {
                     let score = 0;
                     let matchReasons = [];
                     
-                    // Work type matching (highest priority)
+
                     if (equipment.suitability.workTypes.includes(projectDetails.workType)) {
                         score += 40;
                         matchReasons.push(`Perfect for ${projectDetails.workType} work`);
                     }
                     
-                    // Soil type matching
+           
                     if (projectDetails.soilType && equipment.suitability.soilTypes.includes(projectDetails.soilType)) {
                         score += 20;
                         matchReasons.push(`Ideal for ${projectDetails.soilType} soil`);
@@ -747,13 +747,13 @@
                         score -= 10;
                     }
                     
-                    // Project size matching
+    
                     if (equipment.suitability.projectSizes.includes(projectDetails.projectSize)) {
                         score += 20;
                         matchReasons.push(`Right size for ${projectDetails.projectSize} projects`);
                     }
                     
-                    // Budget matching
+
                     if (equipment.suitability.budget.includes(projectDetails.budget)) {
                         score += 20;
                         matchReasons.push(`Fits your ${projectDetails.budget} budget`);
@@ -761,13 +761,13 @@
                         score -= 15;
                     }
                     
-                    // Duration consideration (longer projects benefit from monthly rates)
+                
                     if (projectDetails.duration >= 30 && equipment.pricePerMonth) {
                         score += 5;
                         matchReasons.push("Cost-effective for long-term projects");
                     }
                     
-                    // Only include equipment with a positive score
+             
                     if (score > 0) {
                         recommendations.push({
                             equipment: equipment,
@@ -777,19 +777,19 @@
                     }
                 });
                 
-                // Sort by score (descending)
+       
                 recommendations.sort((a, b) => b.score - a.score);
                 
-                // Return top 6 recommendations
+     
                 return recommendations.slice(0, 6);
             },
             
-            // Get equipment by category
+ 
             getEquipmentByCategory: function(category) {
                 return equipmentDatabase.filter(item => item.category === category);
             },
             
-            // Get equipment by work type
+
             getEquipmentByWorkType: function(workType) {
                 return equipmentDatabase.filter(item => 
                     item.suitability.workTypes.includes(workType)
@@ -806,14 +806,14 @@
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                // Get form values
+    
                 const workType = document.getElementById('workType').value;
                 const soilType = document.getElementById('soilType').value;
                 const projectSize = document.getElementById('projectSize').value;
                 const duration = parseInt(document.getElementById('duration').value);
                 const budget = document.getElementById('budget').value;
                 
-                // Create project details object
+             
                 const projectDetails = {
                     workType: workType,
                     soilType: soilType,
@@ -822,18 +822,18 @@
                     budget: budget
                 };
                 
-                // Get recommendations
+         
                 const recommendations = equipmentRecommendationPipe.getRecommendations(projectDetails);
                 
-                // Display recommendations
+    
                 displayRecommendations(recommendations);
             });
             
             function displayRecommendations(recommendations) {
-                // Show recommendation banner
+ 
                 recommendationBanner.style.display = 'flex';
                 
-                // Clear previous results
+         
                 resultsContainer.innerHTML = '';
                 
                 if (recommendations.length === 0) {
@@ -847,7 +847,7 @@
                     return;
                 }
                 
-                // Add recommendations to the container
+        
                 recommendations.forEach(rec => {
                     const equipment = rec.equipment;
                     const score = rec.score;
